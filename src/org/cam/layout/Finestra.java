@@ -47,7 +47,7 @@ public class Finestra extends JFrame{
 	     start.addActionListener(new ActionListener() {
 	    	  
 	     public void actionPerformed(ActionEvent event) {
-	    	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service apache2 start"};
+	    	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service motion start"};
 	    	 //String array[]= {"sudo", "-S", "service apache2 start"};
 	    	 try {
 				checkProcess.sudoCommand(command);
@@ -65,7 +65,7 @@ public class Finestra extends JFrame{
          stop.addActionListener(new ActionListener() {
     	  
          public void actionPerformed(ActionEvent event) {
-        	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service apache2 stop"};
+        	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service motion stop"};
         	 //String array[]= {"sudo", "-S", "service apache2 stop"};
 	    	 try {
 				checkProcess.sudoCommand(command);
