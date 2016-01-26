@@ -1,7 +1,5 @@
 package org.cam.layout;
 
-import org.cam.layout.Finestra.*;
-
 public class Main {
 		public static void main(String[] args) {
 		

@@ -1,6 +1,7 @@
 package org.cam.layout;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CheckProcess {
@@ -27,5 +28,19 @@ public class CheckProcess {
 			return output.toString();
 
 		}
+	 
+	 public void sudoCommand(String[] command) throws IOException{
+		 
+		 //String[] cmd = {"/bin/bash","-c","echo password| sudo -S ls"};
+		    Process pb = Runtime.getRuntime().exec(command);
+
+		    String line;
+		    BufferedReader input = new BufferedReader(new InputStreamReader(pb.getInputStream()));
+		    while ((line = input.readLine()) != null) {
+		        System.out.println(line);
+		    }
+		    input.close();
+		
+	 }
 
 }

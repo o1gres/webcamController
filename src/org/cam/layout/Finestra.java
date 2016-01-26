@@ -1,33 +1,39 @@
 package org.cam.layout;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.IOException;
 
 import javax.swing.*;
 
 public class Finestra extends JFrame{
 	
-	 public void mainWindow (){
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public void mainWindow (){
 		 
 		 final CheckProcess checkProcess = new CheckProcess();
-		 
+//		 final JFrame frame = new JFrame("Display Mode");
 		 
 		 JFrame mainFrame = new JFrame();
-		 mainFrame.setSize(480, 320);
-		 mainFrame.setVisible(true);
-		 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		 
 		 final JButton start = new JButton("Start");
 		 final JButton stop = new JButton("Stop");
+		 final JButton close = new JButton("Close");
 		 
-		 mainFrame.add(start);
-         mainFrame.add(stop);  
+//		 mainFrame.add(start);
+//         mainFrame.add(stop);  
+//         mainFrame.add(close); 
          
-		 start.setBounds(50, 60, 80, 30);
-		 stop.setBounds(150, 60, 80, 30);
+		 
 		 
 		 
 		 if (validProcess().equalsIgnoreCase("Start")){
@@ -41,7 +47,15 @@ public class Finestra extends JFrame{
 	     start.addActionListener(new ActionListener() {
 	    	  
 	     public void actionPerformed(ActionEvent event) {
-	    	 checkProcess.executeCommand("service mysql start");
+	    	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service apache2 start"};
+	    	 //String array[]= {"sudo", "-S", "service apache2 start"};
+	    	 try {
+				checkProcess.sudoCommand(command);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	 //checkProcess.executeCommand(command);
 	    	 start.setEnabled(false);
     		 stop.setEnabled(true);	   
 	         }
@@ -51,17 +65,48 @@ public class Finestra extends JFrame{
          stop.addActionListener(new ActionListener() {
     	  
          public void actionPerformed(ActionEvent event) {
-		     checkProcess.executeCommand("service mysql stop");
+        	 String[] command = {"/bin/bash","-c","echo \"password\"| sudo -S service apache2 stop"};
+        	 //String array[]= {"sudo", "-S", "service apache2 stop"};
+	    	 try {
+				checkProcess.sudoCommand(command);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	 //checkProcess.executeCommand(command);
     		 setTitle(validProcess());
     		 stop.setEnabled(false);
     		 start.setEnabled(true);  
              }
 	     });
+         
+         close.addActionListener(new ActionListener() {
+       	  
+             public void actionPerformed(ActionEvent event) {
+            	 System.exit(0);
+                 }
+    	     });
 
-	     mainFrame.add(stop);
 
-	    setSize(300, 200);
-	    setLocationRelativeTo(null);
+         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+         
+         start.setPreferredSize(new Dimension(160, 80));
+         stop.setPreferredSize(new Dimension(160, 80)); 
+         close.setPreferredSize(new Dimension(160, 80)); 
+         
+         
+         panel.add(start);
+         panel.add(stop);
+         panel.add(close);
+         panel.setSize(480, 320);
+         mainFrame.add(panel); 
+         
+
+         mainFrame.pack();
+         mainFrame.setSize(480, 320);
+		 mainFrame.setVisible(true);
+		 mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 	 }
 	 
@@ -72,7 +117,7 @@ public class Finestra extends JFrame{
 		 
 		 String idProcesso = "";
 		 try {
-			 idProcesso = checkProcess.executeCommand("pgrep mysql");
+			 idProcesso = checkProcess.executeCommand("pgrep apache2");
 		 } catch (Exception e){
 			e.printStackTrace(); 
 		 	}
