@@ -1,5 +1,6 @@
 package org.cam.layout;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -94,10 +95,12 @@ public class Finestra extends JFrame{
          stop.setPreferredSize(new Dimension(160, 80)); 
          close.setPreferredSize(new Dimension(160, 80)); 
          
-         
-         panel.add(start);
-         panel.add(stop);
-         panel.add(close);
+         panel.setLayout(new BorderLayout());
+        
+        
+         panel.add(start, BorderLayout.WEST);
+         panel.add(stop, BorderLayout.LINE_END);
+         panel.add(close ,BorderLayout.PAGE_END);
          panel.setSize(480, 320);
          mainFrame.add(panel); 
          
