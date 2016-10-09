@@ -9,6 +9,11 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinPwmOutput;
+import com.pi4j.io.gpio.RaspiPin;
+
 public class Finestra extends JFrame{
 	
 	 /**
@@ -103,7 +108,7 @@ public class Finestra extends JFrame{
          offDisplay.addActionListener(new ActionListener() {
        	  
              public void actionPerformed(ActionEvent event) {
-            	 System.exit(0);
+            	 setPinToLow();
                  }
     	     });
 
@@ -137,6 +142,8 @@ public class Finestra extends JFrame{
 	 }
 	 
 	 
+	
+	//CONTROLLA SE MOTION E' AVVIATO OPPURE NO E SETTA OPPORTUNATE LO STATO DEI PULSANTI
 	 public String validProcess(){
 		 
 		 final CheckProcess checkProcess = new CheckProcess();
@@ -158,6 +165,25 @@ public class Finestra extends JFrame{
 		 
 		 return buttonText;
 	 }
+	 
+	 
+	 
+	 
+	 static private boolean setPinToLow()
+	    {
+	    	 final GpioController gpio = GpioFactory.getInstance();
+	                  
+	    	 GpioPinPwmOutput pwmPin = gpio.provisionPwmOutputPin(RaspiPin.GPIO_01);
+
+	    	 //pwmPin.setPwm(3);
+
+	    	 System.out.println("Pin status: "+pwmPin.getPwm());
+	    	 
+	    	 System.out.println("Set pin to low");
+	    	 
+	    	 return true;
+
+	    }
 	 
 	 
 	 
