@@ -29,6 +29,7 @@ public class Finestra extends JFrame{
 		 final JButton start = new JButton("Start");
 		 final JButton stop = new JButton("Stop");
 		 final JButton close = new JButton("Close");
+		 final JButton offDisplay = new JButton("Display");
 		 
 //		 mainFrame.add(start);
 //         mainFrame.add(stop);  
@@ -45,6 +46,9 @@ public class Finestra extends JFrame{
     		 start.setEnabled(false);  
 		 }
 		 
+		 
+		 
+		 //GESTIONE PULSANTE START
 	     start.addActionListener(new ActionListener() {
 	    	  
 	     public void actionPerformed(ActionEvent event) {
@@ -63,6 +67,8 @@ public class Finestra extends JFrame{
 	     });
 	       
          
+	     
+	     //GESTIONE PULSANTE STOP
          stop.addActionListener(new ActionListener() {
     	  
          public void actionPerformed(ActionEvent event) {
@@ -81,7 +87,20 @@ public class Finestra extends JFrame{
              }
 	     });
          
+         
+         
+	     //GESTIONE PULSANTE CLOSE
          close.addActionListener(new ActionListener() {
+       	  
+             public void actionPerformed(ActionEvent event) {
+            	 System.exit(0);
+                 }
+    	     });
+         
+         
+         
+         //GESTIONE PULSANTE OFFDISPLAY
+         offDisplay.addActionListener(new ActionListener() {
        	  
              public void actionPerformed(ActionEvent event) {
             	 System.exit(0);
@@ -89,11 +108,14 @@ public class Finestra extends JFrame{
     	     });
 
 
+         
+         //DISPOSIZIONE GRAFICA PULSANTI
          JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
          
          start.setPreferredSize(new Dimension(160, 80));
          stop.setPreferredSize(new Dimension(160, 80)); 
-         close.setPreferredSize(new Dimension(160, 80)); 
+         close.setPreferredSize(new Dimension(160, 80));
+         offDisplay.setPreferredSize(new Dimension(160, 80));
          
          panel.setLayout(new BorderLayout());
         
@@ -101,6 +123,7 @@ public class Finestra extends JFrame{
          panel.add(start, BorderLayout.WEST);
          panel.add(stop, BorderLayout.LINE_END);
          panel.add(close ,BorderLayout.PAGE_END);
+         panel.add(offDisplay ,BorderLayout.PAGE_START);
          panel.setSize(480, 320);
          mainFrame.add(panel); 
          
